@@ -1,0 +1,41 @@
+Map Generator:
+
+dzia³anie:
+G³ownym celem aplikacji Map_Gen jest tworzenie map dla aplikacji Hub, Hub bedzie sie ³¹czy³ socketami wraz 
+sewerem zaimplementowanych w Map_Gen, kazdy ruch Game_Runnera w Hubie bedzie wysy³a³ zapytanie do serwera czy dane pola
+da siê odwiedziæ serwer bedzie wysy³a³ odpowiedŸ.
+
+Map_Gen bedzie w stanie wygenerowaæ wiele Map.
+
+Map_Gen ma mieæ docelowe zaimplementowane wczytywanie/zapisywanie/usuwanie  map w celu u³atwienia dzia³anie i testów
+
+
+klasy:
+Field - klasa zawieraj¹ca opis pola jak i jego dzia³anie extends JButton
+
+Map - klasa zawieraj¹ca stan mapy  oraz tablicê dwuwymiarow¹ obiektów Field oraz informacie o tym ile pol mozna odwiedziæ
+
+Loader - klasa wczytuj¹ca mapy
+
+//Wszystkie klasy do serwera/ soketów/ gui
+
+
+
+Hub:
+
+dzia³anie:
+Aplikacja ma za zadanie po³¹czyæ siê z istniej¹c¹ map¹ w Map_Gen, oraz próbowaæ rozwi¹zaæ dan¹ mapê.
+U¿ytkownik bedzie w stanie wczytaæ wiele map (oraz mo¿liwie ustawiæ wiele Game_Runner'ow którzy bed¹ rozwi¹zywaæ dan¹ mapê)
+Mapa zostaje ukoñczona kiedy obiekty G_R odwiedz¹ wszystkie pola które da sie odwiedziæ, mapa bedzie przegrana kiedy G_R 
+odwiedz¹ wszystkie mo¿liwe dla nich pola ale nie zwiedz¹ wszystkich pól.
+
+Obiekty G_R bed¹ posiadaæ Listê której elementami bed¹ wszyskie pola wokó³ game G_R, G_R bedzie sukcesywnie dodawaæ 
+i usuwaæ elementy z Listy, Map bedzie sprawdzaæ stan danych list i na podstawie tego i informacji ile pol zosta³o jeszcze 
+do odwiedzenia bedzie decydowaæ czy dana mapa ma kontunowaæ czy sie zakoñczyæ.
+
+klasy:
+Field - to samo co w Map_Gen
+Game_Runner - ¿ó³ty Field który bedzie rozwi¹zywa³ mapê
+Map - to samo co w Map_Gen
+//Wszyskie klasy do serwera/ soketów / gui
+
