@@ -13,7 +13,6 @@ public class MapGenerator {
 
 	private static JPanel menuCards = new JPanel(new CardLayout());
 	private static JComboBox<String> comboBoxMapList = new JComboBox<String>();
-	private static JPanel mapCards = new JPanel(new CardLayout());
 	
 	private static int comboCounter = 0;
 	
@@ -78,8 +77,7 @@ public class MapGenerator {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				menuCardLay.show(menuCards, CREATEMENU);
-				System.out.println("We Work");
-
+				
 			}
 
 		});
@@ -147,9 +145,9 @@ public class MapGenerator {
 		public PanelCreateNewMap() {
 			JLabel textTip = new JLabel("Please fill all fields");
 			JLabel textSizeX = new JLabel("Size X: ");
-			JTextField fieldSizeX = new JTextField("20", 7);
+			JTextField fieldSizeX = new JTextField("40", 7);
 			JLabel textSizeY = new JLabel("Size Y: ");
-			JTextField fieldSizeY = new JTextField("20", 7);
+			JTextField fieldSizeY = new JTextField("30", 7);
 			JLabel textMapName = new JLabel("Map Name: ");
 			JTextField fieldMapName = new JTextField("xxxx",7);
 			JButton buttonOK = new JButton("OK");
@@ -202,14 +200,13 @@ public class MapGenerator {
 					frameBoard.setSize(800, 480);
 					frameBoard.setLocation(450, 100);
 					frameBoard.setResizable(false);
-					// frameBoard.setDefaultCloseOperation(3);
-					// frameBoard.getContentPane().setLayout(null);
+
 
 					Board board = new Board(intX, intY, frameBoard.getContentPane(),mapName);
 					
 					loader.addToArray(board);
 
-				//	AddToComboBox addTCB = new AddToComboBox( board);
+
 					
 					Map_Gen_Server mapServer = new Map_Gen_Server(board);
 					
@@ -217,11 +214,9 @@ public class MapGenerator {
 					board.setCompName(mapServer.getCompName());
 					board.addLabel();
 					
-					//mapServer.start();
 					
-					AddToComboBox addTCB = new AddToComboBox( board);
+					AddToComboBox atcb = new AddToComboBox( board);
 
-					// frameBoard.add(board);
 					frameBoard.setVisible(true);
 					mapServer.start();
 
@@ -231,12 +226,17 @@ public class MapGenerator {
 
 
 		}
+		/**
+		 * Makes JPanel containing information for ComboBox
+		 * @author Imperative
+		 *
+		 */
 				 public class AddToComboBox
 				 {
 					 private Board board;
-						public  AddToComboBox(Board board) {
+						public  AddToComboBox(Board aBoard) {
 							
-							this.board = board;
+							board = aBoard;
 							JPanel panel = new JPanel();
 				
 							panel.setLayout(new FlowLayout());
@@ -303,8 +303,7 @@ public class MapGenerator {
 									frameBoard.setSize(800, 480);
 									frameBoard.setLocation(450, 100);
 									frameBoard.setResizable(false);
-									// frameBoard.setDefaultCloseOperation(3);
-									// frameBoard.getContentPane().setLayout(null);
+
 									
 									Board bb = new Board(board,frameBoard.getContentPane());
 									bb.addLabel();
@@ -322,15 +321,9 @@ public class MapGenerator {
 	}
 
 	public static class PanelMapList extends JPanel  {
-		
-	//	private static CardLayout mapCardLay;
-
-		
+				
 		public PanelMapList() {
 
-			
-			
-			
 			
 			JLabel textTip = new JLabel("Choose map");
 			JButton buttonOK = new JButton("Ok");
@@ -338,9 +331,7 @@ public class MapGenerator {
 
 			Dimension dim = new Dimension(180, 30);
 			Dimension dim2 = new Dimension(90,30);
-			
-
-			
+				
 
 			textTip.setPreferredSize(dim);
 			comboBoxMapList.setPreferredSize(dim);
@@ -352,10 +343,6 @@ public class MapGenerator {
 			this.add(buttonOK);
 	        this.add(buttonBack);
 	        
-
-
-		
-		
 			
 			buttonOK.addActionListener(new ActionListener(){
 
@@ -417,9 +404,10 @@ public class MapGenerator {
 					
 					for(Board board:boardArray)
 					{
-						Map_Gen_Server mapServer = new Map_Gen_Server(board.getServerPort(),board.getCompName(),board);
-						board.addLabel();
+						Map_Gen_Server mapServer = new Map_Gen_Server(board);
+						//board.addLabel();
 						mapServer.start();
+						//board.addLabel();
 						MapGenerator.PanelCreateNewMap.AddToComboBox atcb = PCNM.new AddToComboBox(board);
 					}
 					
@@ -445,6 +433,9 @@ public class MapGenerator {
 		}
 	}
 
+/**
+ *  static Method for building frame containing menu of Map_Generator
+ */
 	public static void ShowGUI() {
 
 		JFrame menuFrame = new JFrame();
@@ -467,7 +458,6 @@ public class MapGenerator {
 				ShowGUI();
 			}
 		});
-		
 		
 	}
 

@@ -6,10 +6,6 @@ import java.util.*;
 public class Loader {
 	private static ArrayList<Board> boardArray = new ArrayList<Board>();
 	
-//	public Loader()
-//	{
-//		
-//	}
 	
 	public void addToArray(Board board)
 	{
@@ -20,7 +16,10 @@ public class Loader {
 	{
 		return boardArray;
 	}
-	
+	/**
+	 * Loads information
+	 * @param fileName
+	 */
 	public void load(String fileName)
 	{
 
@@ -37,8 +36,8 @@ public class Loader {
 			boardX = sc.next();
 			boardY = sc.next();
 			boardName = sc.next();
-			port = sc.nextInt();
-			compName = sc.next();
+		//	port = sc.nextInt();
+		//	compName = sc.next();
 			
 			while(boardX!=null)
 			{
@@ -63,7 +62,7 @@ public class Loader {
 						fieldArray[i][j] = tempField;
 					}
 				}
-				Board board = new Board(Integer.parseInt(boardX),Integer.parseInt(boardY),boardName,port,compName,fieldArray);
+				Board board = new Board(Integer.parseInt(boardX),Integer.parseInt(boardY),boardName,fieldArray);
 				boardArray.add(board);
 				
 				if(sc.hasNext()){
@@ -84,7 +83,10 @@ public class Loader {
 		}
 		
 	}
-	
+	/**
+	 * Saves Information
+	 * @param fileName
+	 */
 	public void safeToFile(String fileName)
 	{
 		fileName+=".txt";

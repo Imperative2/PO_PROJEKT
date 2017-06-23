@@ -1,23 +1,12 @@
 import java.util.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
-import javax.swing.*;
 
 public class Map_Gen_Server extends Thread {
 	
@@ -38,14 +27,17 @@ public class Map_Gen_Server extends Thread {
 	private static Random rng = new Random();
 	
 	
-	
-	//ArrayList<Socket> clientSocketArray = new ArrayList<>();
-	
-	public Map_Gen_Server(Board aBoard) //throws IOException
+	/**
+	 * Constructor of class Map_Gen_Server which makes Thread and Server socket 
+	 * @param aBoard - specific board to which server is added
+	 */
+	public Map_Gen_Server(Board aBoard) 
 	{
 		board = aBoard;
 		
 		portNumber  = rng.nextInt(1000)+5000;
+		
+		
 		
 
 		try
@@ -53,6 +45,8 @@ public class Map_Gen_Server extends Thread {
 		    InetAddress addr;
 		    addr = InetAddress.getLocalHost();
 		    compName = addr.getHostName();
+		    board.setCompName(compName);
+
 		}
 		catch (UnknownHostException ex)
 		{
@@ -62,6 +56,7 @@ public class Map_Gen_Server extends Thread {
 		 try {
 			 System.out.println("Waiting for you to make me a socket!!!");
 				serverSocket = new ServerSocket(portNumber);
+				board.setServerPort(portNumber);
 
 				//socket = serverSocket.accept();
 			//	iStream = socket.getInputStream();
@@ -72,13 +67,14 @@ public class Map_Gen_Server extends Thread {
 				e.printStackTrace();
 			}
 				
-
-			
-						
-				
-			
-	}
 	
+	}
+	/**
+	 * Constructor of class Map_Gen_Server makes thread and server socket with given port and computer name
+	 * @param aPort - int port to which set server socket
+	 * @param aCompName - String Computer name to which set server socket
+	 * @param aBoard - Board specific board to which add server
+	 */
 	public Map_Gen_Server(int aPort,String aCompName, Board aBoard)
 	{
 		portNumber = aPort;
@@ -96,7 +92,12 @@ public class Map_Gen_Server extends Thread {
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * Method that first accepts connection to Client Socket
+	 * First it sends board width and height and board Value
+	 * 
+	 * When Board is made in client application, waits to return values of the Fields that client socket requests
+	 */
 	public void run()
 	{
 		System.out.println("Server at port "+portNumber);
@@ -187,7 +188,7 @@ public class Map_Gen_Server extends Thread {
 		{
 			System.out.println("We got into the third part");
 			try {
-				Thread.sleep(1);
+				Thread.sleep(2);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -207,24 +208,25 @@ public class Map_Gen_Server extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-			
-			
+				
 		}
 
-		
 	}
-	
+	/**
+	 * Returns server Port
+	 * @return int server Port
+	 */
 	public int getServerPort()
 	{
 		return portNumber;
 	}
-	
+	/**
+	 * Return Computer Name 
+	 * @return String computer name
+	 */
 	public String getCompName()
 	{
 		return compName;
 	}
 	
-	
-
 }

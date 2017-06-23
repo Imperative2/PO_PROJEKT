@@ -19,7 +19,13 @@ public class Board  {
 	private JPanel menu;
 
 
-	
+	/**
+	 * Constructor of the Board class fill's frame on which player can change state of the board
+	 * @param sizeX - width of the board
+	 * @param sizeY - height of the board
+	 * @param pane - Container of the frame 
+	 * @param aMapName - name of the Map
+	 */
 	public Board(int sizeX, int sizeY, Container pane,String aMapName)
 	{
 		super();
@@ -73,14 +79,21 @@ public class Board  {
 		
 		
 	}
-	public Board(int sizeX, int sizeY, String aMapName,int aServerPort, String aCompName, Field[][] aFieldArray)
+	/**
+	 * Constructor of the Board which has gets already defines server Socket 
+	 * @param sizeX - width of the board
+	 * @param sizeY - height of the board
+	 * @param aMapName - map of the name
+	 * @param aServerPort - server Port 
+	 * @param aCompName - name of the Computer on which is contained
+	 * @param aFieldArray - array with buttons (board state)
+	 */
+	public Board(int sizeX, int sizeY, String aMapName, Field[][] aFieldArray)
 	{
 		fieldArray = aFieldArray;
 		boardX = sizeX;
 		boardY = sizeY;
 		mapName = aMapName;
-		serverPort = aServerPort;
-		compName = aCompName;
 		boardSum = getBoardValue();
 	}
 	
@@ -93,8 +106,7 @@ public class Board  {
 		
 		serverPort = board.getServerPort();
 		compName = board.getCompName();
-		
-
+	
 		
 		JLabel textBoardSum = new JLabel();
 		
@@ -129,7 +141,6 @@ public class Board  {
 		}	
 		
 		
-		
 		boardX = board.getSizeX();
 		boardY = board.getSizeY();
 		
@@ -138,9 +149,10 @@ public class Board  {
 		
 		pane.add(menu);
 		
-		
 	}
-
+/**
+ * Randomly sets each field on the wall to either wall or accessible
+ */
 	public void randomise()
 	{
 		Random rng = new Random();
@@ -155,7 +167,10 @@ public class Board  {
 			}
 		}
 	}
-	
+	/**
+	 * Return number of the Field that a player is able to access
+	 * @return int number of the fields accessible
+	 */
 	public int getBoardValue()
 	{
 		int sum = 0;
@@ -168,26 +183,41 @@ public class Board  {
 		}
 		return sum;
 	}
-	
+	/**
+	 * Returns map name
+	 * @return String MapName
+	 */
 	public String getMapName()
 	{
 		return mapName;
 	}
-	
+	/**
+	 * Returns Field Array of the board
+	 * @return Field[][]
+	 */
 	public Field[][] getArray()
 	{
 		return fieldArray;
 	}
+	/**
+	 * Returns board width
+	 * @return int board width
+	 */
 	public int getSizeX()
 	{
 		return boardX;
 	}
-	
+	/**
+	 * Returns  board height
+	 * @return int board height
+	 */
 	public int getSizeY()
 	{
 		return boardY;
 	}
-	
+	/**
+	 * Returns string of the board which is representation of the board class and its Field Array
+	 */
 	public String toString()
 	{
 		String fieldStr = new String();
@@ -201,30 +231,44 @@ public class Board  {
 			}
 		}
 //		System.out.println(boardX+" "+boardY+" "+mapName+" "+fieldStr);
-		return boardX+" "+boardY+" "+mapName+" "+serverPort+" "+compName+" "+fieldStr;
+		return boardX+" "+boardY+" "+mapName+" "+" "+fieldStr;
 	}
 
-	
+	/**
+	 * Returns Server Port
+	 * @return int Server Port
+	 */
 	public int getServerPort()
 	{
 		return serverPort;
 	}
-	
+	/**
+	 * Return ComputerName with the server
+	 * @return Strign name of the Computer Containing Server
+	 */
 	public String getCompName()
 	{
 		return compName;
 	}
-	
+	/**
+	 * Sets server port
+	 * @param aPort - int Sets Port of the Server 
+	 */
 	public void setServerPort(int aPort)
 	{
 		serverPort = aPort;
 	}
-	
+	/**
+	 * Sets Computer Name
+	 * @param aName - String Sets Computer name 
+	 */
 	public void setCompName(String aName)
 	{
 		compName = aName;
 	}
-	
+	/**
+	 * add's Labels displaying port and computer name
+	 */
 	public void addLabel()
 	{
 		JLabel textPort = new JLabel("port: "+serverPort);
@@ -237,7 +281,12 @@ public class Board  {
 		menu.add(textCompName);
 		menu.repaint();
 	}
-	
+	/**
+	 * Returns state of the Specific Field
+	 * @param x - int position of the X field
+	 * @param y - int position of the Y field 
+	 * @return Returns int state of the specified Field
+	 */
 	public int getState(int x, int y)
 	{
 		return fieldArray[y][x].getState();
